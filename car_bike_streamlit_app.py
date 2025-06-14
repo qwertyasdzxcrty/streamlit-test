@@ -18,15 +18,11 @@ class_names = ["Bike", "Car"]
 
 # Image uploader
 uploaded_file = st.file_uploader("Choose an image...", type=["jpg", "jpeg", "png"])
-if uploaded_file:
-    img = Image.open(uploaded_file).resize((128, 128))
-    st.image(img, caption='Uploaded Image', use_container_width=True)
-
-    # Preprocess image
+if uploaded_file is not None:
+    img = Image.open(uploaded_file).convert("RGB")
+    img = img.resize((128, 128))
     img_array = np.array(img) / 255.0
     img_array = np.expand_dims(img_array, axis=0)
-
-    # Predict and display result
     prediction = model.predict(img_array)
     # Update class_names to match the label order used during model training
     # Handle both binary (sigmoid) and multi-class (softmax) outputs
