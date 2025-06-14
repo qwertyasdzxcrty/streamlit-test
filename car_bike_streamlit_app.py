@@ -1,46 +1,30 @@
 import streamlit as st
-import tensorflow as tf
-from tensorflow import keras
-from tensorflow.keras.models import load_model
-from tensorflow.keras.preprocessing import image
 import numpy as np
 from PIL import Image
+from tensorflow.keras.models import load_model
 
-import sys
-print(sys.path)  # Check paths
-import tensorflow as tf
-print(tf.__version__)  # Confirm TensorFlow is accessible
-
-
+# App title
 st.title("Car vs Bike Image Classifier")
 
-# Load trained model
 @st.cache_resource
 def load_trained_model():
-    model = load_model("carbike-class/carbike-class2/model1.keras")  # Update with correct path if necessary
-    return model
+     # Load your trained model; adjust path if needed
+     return load_model("carbike-class/carbike-class2/model1.keras")
 
 model = load_trained_model()
 
-uploaded_file = st.file_uploader("Choose an image...", type=["jpg", "png", "jpeg"])
-if uploaded_file is not None:
-    img = Image.open(uploaded_file).resize((150, 150))
-    st.image(img, caption='Uploaded Image', use_column_width=True)
-    img_array = image.img_to_array(img)
-    img_array = np.expand_dims(img_array, axis=0) / 255.0
-
-    prediction = model.predict(img_array)
-    class_names = ["Bike", "Car"]  # Adjust if your labels are different
-    st.write(f"Prediction: **{class_names[int(prediction[0][0] > 0.5)]}**")
-    
-from PIL import Image
-from tensorflow.keras.preprocessing import image
-
+# Image uploader
 uploaded_file = st.file_uploader("Choose an image...", type=["jpg", "jpeg", "png"])
-if uploaded_file is not None:
-    img = Image.open(uploaded_file)
-    img = img.convert("RGBA")  # <-- Add this line
-    img = img.resize((150, 150))
-    st.image(img, caption='Uploaded Image', use_column_width=True)
-    img_array = image.img_to_array(img)
-    img_array = np.expand_dims(img_array, axis=0) / 255.0
+if uploaded_file:
+    img = Image.open(uploaded_file).resize((150, 150))
+    st.image(img, caption='Uploaded Image', use_container_width=True)
+
+    # Preprocess image
+    img_array = np.array(img) / 255.0
+    img_array = np.expand_dims(img_array, axis=0)
+
+    # Predict and display result
+    prediction = model.predict(img_array)[0][0]
+    class_names = ["Bike", "Car"]
+    label = class_names[int(prediction > 0.5)]
+    st.write(f"Prediction: **{label}**")
