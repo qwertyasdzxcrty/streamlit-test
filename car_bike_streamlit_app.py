@@ -16,7 +16,7 @@ model = load_trained_model()
 # Image uploader
 uploaded_file = st.file_uploader("Choose an image...", type=["jpg", "jpeg", "png"])
 if uploaded_file:
-    img = Image.open(uploaded_file).resize((150, 150))
+    img = Image.open(uploaded_file).resize((128, 128))
     st.image(img, caption='Uploaded Image', use_container_width=True)
 
     # Preprocess image
