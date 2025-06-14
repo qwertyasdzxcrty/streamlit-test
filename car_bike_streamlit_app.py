@@ -17,12 +17,12 @@ st.title("Car vs Bike Image Classifier")
 # Load trained model
 @st.cache_resource
 def load_trained_model():
-    model = load_model("model.h5")  # Update with correct path if necessary
+    model = load_model("carbike-class2/model1.keras")  # Update with correct path if necessary
     return model
 
 model = load_trained_model()
 
-uploaded_file = st.file_uploader("Choose an image...", type=s["jpg", "png", "jpeg"])
+uploaded_file = st.file_uploader("Choose an image...", type=["jpg", "png", "jpeg"])
 if uploaded_file is not None:
     img = Image.open(uploaded_file).resize((150, 150))
     st.image(img, caption='Uploaded Image', use_column_width=True)
