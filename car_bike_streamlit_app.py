@@ -17,7 +17,7 @@ st.title("Car vs Bike Image Classifier")
 # Load trained model
 @st.cache_resource
 def load_trained_model():
-    model = load_model("carbike-class2\\model1.keras")  # Update with correct path if necessary
+    model = load_model("carbike-class/carbike-class2/model1.keras")  # Update with correct path if necessary
     return model
 
 model = load_trained_model()
