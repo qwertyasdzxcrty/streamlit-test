@@ -30,7 +30,7 @@ if uploaded_file:
     prediction = model.predict(img_array)
     # Update class_names to match the label order used during model training
     # Handle both binary (sigmoid) and multi-class (softmax) outputs
-    if prediction.shape[-1] == 1:
+    if prediction.shape[0] == 1:
         pred_value = prediction[0][0]
         is_car = pred_value > 0.5  # True if model predicts 'Car', False for 'Bike'
         label = class_names[int(is_car)]
