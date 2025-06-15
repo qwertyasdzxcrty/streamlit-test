@@ -8,8 +8,7 @@ st.title("Car vs Bike Image Classifier")
 
 @st.cache_resource
 def load_trained_model():
-     # Load your trained model; adjust path if needed
-     return load_model("carbike-class\carbike-class2\model2.keras")
+    return load_model("streamlit-test/carbike-class2/model2.keras")
 
 model = load_trained_model()
 
