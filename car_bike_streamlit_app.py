@@ -9,7 +9,7 @@ st.title("Car vs Bike Image Classifier")
 @st.cache_resource
 def load_trained_model():
      # Load your trained model; adjust path if needed
-     return load_model("carbike-class/carbike-class2/model1.keras")
+     return load_model("carbike-class\carbike-class2\model5.keras")
 
 model = load_trained_model()
 
@@ -30,7 +30,7 @@ if uploaded_file:
     prediction = model.predict(img_array)
     # Update class_names to match the label order used during model training
     # Handle both binary (sigmoid) and multi-class (softmax) outputs
-    if prediction.shape[0] == 1:
+    if prediction.shape[-1] == 1:
         pred_value = prediction[0][0]
         is_car = pred_value > 0.5  # True if model predicts 'Car', False for 'Bike'
         label = class_names[int(is_car)]
